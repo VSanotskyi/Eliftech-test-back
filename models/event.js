@@ -6,10 +6,6 @@ const eventsSchema = new Schema({
     description: {type: String, required: true},
     eventDate: {type: String, required: true},
     organizer: {type: String, required: true},
-    owner: {
-        type: Schema.Types.ObjectId,
-        ref: 'user'
-    }
 })
 
 const createEventsSchema = Joi.object({
@@ -25,4 +21,6 @@ export {
     createEventsSchema,
     Event,
 }
+
+
 

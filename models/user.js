@@ -6,6 +6,10 @@ const usersSchema = new Schema({
     email: {type: String, required: true},
     dateOfBirth: {type: String, required: true},
     whereHear: {type: String, required: true, enum: ['Social media', "Friends", 'Found myself']},
+    owner: {
+        type: Schema.Types.ObjectId,
+        ref: 'event'
+    }
 })
 
 const createUserSchema = Joi.object({
@@ -13,9 +17,10 @@ const createUserSchema = Joi.object({
     email: Joi.string().required(),
     dateOfBirth: Joi.string().required(),
     whereHear: Joi.string().required(),
+    owner: Joi.string().required(),
 })
 
-const User = mongoose.model('Event', usersSchema)
+const User = mongoose.model('User', usersSchema)
 
 export {
     createUserSchema,
