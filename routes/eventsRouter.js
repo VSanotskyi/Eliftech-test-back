@@ -5,9 +5,11 @@ import {createUserSchema} from "../models/user.js";
 
 const eventsRouter = express.Router()
 
-eventsRouter.get('/', eventsController.getAll)
+eventsRouter.get('/', eventsController.getAllEvents)
 
 eventsRouter.post('/registration',validateBody(createUserSchema), eventsController.registration)
+
+eventsRouter.get('/users/:id', eventsController.getUsersByEventId)
 
 export {eventsRouter}
 

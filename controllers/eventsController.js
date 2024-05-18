@@ -4,7 +4,7 @@ import {Event} from "../models/event.js";
 import {User} from "../models/user.js";
 import {HttpError} from "../helpers/HttpError.js";
 
-const getAll = async (req, res) => {
+const getAllEvents = async (req, res) => {
 
     const events = await Event.find()
 
@@ -16,7 +16,7 @@ const registration = async (req, res) => {
 
     const findUser = await User.findOne({owner: dto.owner})
 
-    if (findUser) {
+    if (findUser.email === dto.email) {
         throw HttpError(409)
     }
 
@@ -25,7 +25,16 @@ const registration = async (req, res) => {
     res.json(user)
 }
 
+const getUsersByEventId = async (req,res) => {
+    const {id} = req.params
+
+    const users = await User.find({owner: id})
+
+    res.json({users})
+}
+
 export const eventsController = {
-    getAll: ctrlWrapper(getAll),
-    registration: ctrlWrapper(registration)
+    getAllEvents: ctrlWrapper(getAllEvents),
+    registration: ctrlWrapper(registration),
+    getUsersByEventId: ctrlWrapper(getUsersByEventId),
 }
