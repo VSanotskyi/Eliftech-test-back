@@ -30,7 +30,7 @@ const getUsersByEventId = async (req,res) => {
 
     const users = await User.find({owner: id})
 
-    res.json({users})
+    res.json(users)
 }
 
 export const eventsController = {
