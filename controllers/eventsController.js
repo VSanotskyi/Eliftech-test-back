@@ -5,7 +5,7 @@ import {User} from "../models/user.js";
 import {HttpError} from "../helpers/HttpError.js";
 
 const getAllEvents = async (req, res) => {
-    const events = await Event.find()
+    const events = await Event.find().skip(skip).limit(limit)
 
     events.sort((a, b) => {
         const dateA = a.eventDate.split('.').reverse().join('.')
