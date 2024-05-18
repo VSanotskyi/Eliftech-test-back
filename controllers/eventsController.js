@@ -5,8 +5,13 @@ import {User} from "../models/user.js";
 import {HttpError} from "../helpers/HttpError.js";
 
 const getAllEvents = async (req, res) => {
-
     const events = await Event.find()
+
+    events.sort((a, b) => {
+        const dateA = a.eventDate.split('.').reverse().join('.')
+        const dateB = b.eventDate.split('.').reverse().join('.')
+        return new Date(dateA) - new Date(dateB)
+    })
 
     res.json(events)
 }
@@ -25,7 +30,7 @@ const registration = async (req, res) => {
     res.json(user)
 }
 
-const getUsersByEventId = async (req,res) => {
+const getUsersByEventId = async (req, res) => {
     const {id} = req.params
 
     const users = await User.find({owner: id})
